@@ -136,9 +136,22 @@ void data_handler::split_data()
     printf("Training data size: %lu.\n", training_data->size());
     printf("Test data size: %lu.\n", test_data->size());
     printf("Validation data size: %lu.\n", validation_data->size());
-
 }
-void data_handler::count_classes() {}
+void data_handler::count_classes()
+{
+    int count = 0;
+    for (unsigned int i = 0; i < data_array->size(); i++)
+    {
+        if (class_map.find(data_array->at(i)->get_label()) == class_map.end())
+        {
+            class_map[data_array->at(i)->get_label()] = count;
+            data_array->at(i)->set_enumerated_label(count);
+            count++;
+        }
+    }
+    num_classes = count;
+    printf("Successfully extracted %d unique classes\n", num_classes);
+}
 
 uint32_t data_handler::convert_to_little_endian(const unsigned char *bytes) {}
 
