@@ -155,6 +155,15 @@ void data_handler::count_classes()
 
 uint32_t data_handler::convert_to_little_endian(const unsigned char *bytes) {}
 
-std::vector<data *> *data_handler::get_training_data() {}
-std::vector<data *> *data_handler::get_test_data() {}
-std::vector<data *> *data_handler::get_validation_data() {}
+std::vector<data *> *data_handler::get_training_data()
+{
+    return training_data;
+}
+std::vector<data *> *data_handler::get_test_data()
+{
+    return test_data;
+}
+std::vector<data *> *data_handler::get_validation_data()
+{
+    return validation_data;
+}
