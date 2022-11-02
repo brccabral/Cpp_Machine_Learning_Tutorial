@@ -53,12 +53,12 @@ void data_handler::read_feature_vector(std::string path)
 }
 void data_handler::read_feature_labels(std::string path)
 {
-    uint32_t header[4]; // |MAGIC|NUM IMAGES|ROWSIZE|COLSIZE|
+    uint32_t header[2]; // |MAGIC|NUM IMAGES|
     unsigned char bytes[4];
     FILE *f = fopen(path.c_str(), "r");
     if (f)
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 2; i++)
         {
             if (fread(bytes, sizeof(bytes), 1, f))
             {
@@ -172,4 +172,13 @@ std::vector<data *> *data_handler::get_test_data()
 std::vector<data *> *data_handler::get_validation_data()
 {
     return validation_data;
+}
+
+int main()
+{
+    data_handler *dh = new data_handler();
+    dh->read_feature_vector("../MNIST/train-images.idx3-ubyte"); // for now, needs to come first
+    dh->read_feature_labels("../MNIST/train-labels.idx1-ubyte");
+    dh->split_data();
+    dh->count_classes();
 }
