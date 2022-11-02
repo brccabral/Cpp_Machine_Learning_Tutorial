@@ -11,6 +11,8 @@ class data
     int enum_label; // A -> 1, B -> 2
 
 public:
+    data();
+    ~data();
     void set_feature_vector(std::vector<uint8_t> *);
     void append_to_feature_vector(uint8_t);
     void set_label(uint8_t);
