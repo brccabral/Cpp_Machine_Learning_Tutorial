@@ -25,7 +25,50 @@ void knn::set_validation_data(std::vector<data *> *vect)
     validation_data = vect;
 }
 
-void knn::find_knearest(data *query_point) {}
+// O(N^2) if K ~ N
+// if K = 2 then O(~N)
+// O(NlogN) if sorted data
+void knn::find_knearest(data *query_point)
+{
+    neighbors = new std::vector<data *>;
+    double min = std::numeric_limits<double>::max();
+    double previous_min = min;
+    int index = 0;
+    for (int i = 0; i < k; i++)
+    {
+        if (i == 0)
+        {
+            for (int j = 0; j < training_data->size(); j++)
+            {
+                double distance = calculate_distance(query_point, training_data->at(j));
+                training_data->at(j)->set_distance(distance);
+                if (distance < min)
+                {
+                    min = distance;
+                    index = j;
+                }
+            }
+            neighbors->push_back(training_data->at(index));
+            previous_min = min;
+            min = std::numeric_limits<double>::max();
+        }
+        else
+        {
+            for (int j = 0; j < training_data->size(); j++)
+            {
+                double distance = calculate_distance(query_point, training_data->at(j));
+                if (distance > previous_min && distance < min)
+                {
+                    min = distance;
+                    index = j;
+                }
+            }
+            neighbors->push_back(training_data->at(index));
+            previous_min = min;
+            min = std::numeric_limits<double>::max();
+        }
+    }
+}
 void knn::set_k(int val) {}
 
 int knn::predict() {}

@@ -5,7 +5,6 @@ data::data()
     feature_vector = new std::vector<uint8_t>;
 }
 
-
 void data::set_feature_vector(std::vector<uint8_t> *vect)
 {
     feature_vector = vect;
@@ -21,6 +20,10 @@ void data::set_label(uint8_t val)
 void data::set_enumerated_label(int val)
 {
     enum_label = val;
+}
+void data::set_distance(int val)
+{
+    distance = val;
 }
 
 int data::get_feature_vector_size()
