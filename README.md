@@ -9,5 +9,5 @@ MNIST data can be downloaded from http://yann.lecun.com/exdb/mnist/
 cd mnist_ml
 export MNIST_ML_ROOT=$PWD
 make
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/lib
 ```
