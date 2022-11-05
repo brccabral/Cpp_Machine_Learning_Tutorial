@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "name": "ML Linux",
+            "intelliSenseMode": "linux-gcc-x64",
+            "compilerPath": "/usr/local/bin/gcc",
+            "cStandard": "gnu11",
+            "cppStandard": "gnu++11",
+            "defines": [
+                "EUCLID"
+            ],
+            "includePath": [
+                "${workspaceFolder}/mnist_ml/include",
+                "${workspaceFolder}/mnist_ml/KNN/include"
+            ]
+        }
+    ],
+    "version": 4
+}

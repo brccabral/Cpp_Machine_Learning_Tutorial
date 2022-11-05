@@ -1,2 +1,4 @@
 MNIST/
 main
+.vscode/launch.json
+.vscode/settings.json
