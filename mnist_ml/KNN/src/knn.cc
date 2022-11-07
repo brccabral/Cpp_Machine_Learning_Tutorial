@@ -24,6 +24,10 @@ void knn::set_validation_data(std::vector<data *> *vect)
 {
     validation_data = vect;
 }
+void knn::set_k(int val)
+{
+    k = val;
+}
 
 // O(N^2) if K ~ N
 // if K = 2 then O(~N)
@@ -69,7 +73,6 @@ void knn::find_knearest(data *query_point)
         }
     }
 }
-void knn::set_k(int val) {}
 
 int knn::predict() {}
 double knn::calculate_distance(data *query_point, data *input)
