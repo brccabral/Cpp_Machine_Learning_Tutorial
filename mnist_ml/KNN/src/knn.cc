@@ -74,7 +74,36 @@ void knn::find_knearest(data *query_point)
     }
 }
 
-int knn::predict() {}
+int knn::predict()
+{
+    std::map<uint8_t, int> class_freq;
+    // count each label/class appearance, increase 1 for each class/label
+    for (int i = 0; i < neighbors->size(); i++)
+    {
+        if (class_freq.find(neighbors->at(i)->get_label()) == class_freq.end())
+        {
+            class_freq[neighbors->at(i)->get_label()] = 1;
+        }
+        else
+        {
+            class_freq[neighbors->at(i)->get_label()]++;
+        }
+    }
+
+    // find highest label/class
+    int best = 0;
+    int max = 0;
+    for (auto kv : class_freq)
+    {
+        if (kv.second > max)
+        {
+            max = kv.second;
+            best = kv.first;
+        }
+    }
+    delete neighbors;
+    return best;
+}
 double knn::calculate_distance(data *query_point, data *input)
 {
     double distance = 0.0;
