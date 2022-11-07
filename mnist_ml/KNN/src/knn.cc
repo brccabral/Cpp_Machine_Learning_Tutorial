@@ -143,4 +143,20 @@ double knn::validate_performance()
     printf("Validation performance = %.3f %%\n", current_performance);
     return current_performance;
 }
-double knn::test_performance() {}
+double knn::test_performance()
+{
+    double current_performance = 0;
+    int count = 0;
+    for (data *query_point : *test_data)
+    {
+        find_knearest(query_point);
+        int prediction = predict();
+        if (prediction == query_point->get_label())
+        {
+            count++;
+        }
+    }
+    current_performance = ((double)count * 100.0) / (double)test_data->size();
+    printf("Test performance = %.3f %%\n", current_performance);
+    return current_performance;
+}
