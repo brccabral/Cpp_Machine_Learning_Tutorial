@@ -2,3 +2,4 @@ MNIST/
 main
 .vscode/launch.json
 .vscode/settings.json
+mnist_ml/obj/
