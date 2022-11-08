@@ -42,14 +42,13 @@ void kmeans::init_clusters_for_each_class()
 
 void kmeans::train()
 {
+    int index = 0;
     while (used_indexes->size() < training_data->size())
     {
-        // pick a random point
-        int index = (rand() % training_data->size());
         // make sure we are not picking the same point
         while (used_indexes->find(index) != used_indexes->end())
         {
-            index = (rand() % training_data->size());
+            index++; // avoid picking random points (it doesn't speed the code much)
         }
         double min_dist = std::numeric_limits<double>::max();
         int best_cluster = 0;
@@ -145,7 +144,7 @@ int main()
         km->init_clusters();
         km->train();
         performance = km->validate();
-        printf("Current Performance @ K = %d: %.2f\n", k, performance);
+        printf("Current Performance @ K = %d out of %d: %.2f\n", k, (int)(dh->get_training_data()->size() * 0.1), performance);
         if (performance > best_performance)
         {
             best_performance = performance;
