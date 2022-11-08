@@ -13,6 +13,8 @@ typedef struct cluster
     std::vector<double> *centroid;
     std::vector<data *> *cluster_points;
     std::map<int, int> class_counts;
+    // a cluster can have points from different classes, this will store
+    // the class that have more points associated in that cluster
     int most_frequent_class;
 
     cluster(data *initial_point)
@@ -57,6 +59,7 @@ typedef struct cluster
         set_most_frequent_class();
     }
 
+    // find the most frequent class for that cluster
     void set_most_frequent_class()
     {
         int best_class;

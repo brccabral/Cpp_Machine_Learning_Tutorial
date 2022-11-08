@@ -79,6 +79,27 @@ double kmeans::euclidean_distance(std::vector<double> *centroid, data *point)
     return sqrt(dist);
 }
 
-double kmeans::validate() {}
+double kmeans::validate()
+{
+    double num_correct = 0.0;
+    for (auto query_point : *validation_data)
+    {
+        double min_dist = std::numeric_limits<double>::max();
+        int best_cluster = 0;
+        // find nearest centroid from validation point
+        for (int j = 0; j < clusters->size(); j++)
+        {
+            double current_dist = euclidean_distance(clusters->at(j)->centroid, query_point);
+            if (current_dist < min_dist)
+            {
+                min_dist = current_dist;
+                best_cluster = j;
+            }
+        }
+        if (clusters->at(best_cluster)->most_frequent_class == query_point->get_label())
+            num_correct++;
+    }
+    return 100.0 * num_correct / (double)validation_data->size();
+}
 
 double kmeans::test() {}
