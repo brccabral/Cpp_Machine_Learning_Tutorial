@@ -11,7 +11,8 @@
             ],
             "includePath": [
                 "${workspaceFolder}/mnist_ml/include",
-                "${workspaceFolder}/mnist_ml/KNN/include"
+                "${workspaceFolder}/mnist_ml/KNN/include",
+                "${workspaceFolder}/mnist_ml/KMEANS/include"
             ]
         }
     ],
