@@ -101,7 +101,7 @@ int knn::predict()
             best = kv.first;
         }
     }
-    delete neighbors;
+    neighbors->clear();
     return best;
 }
 double knn::calculate_distance(data *query_point, data *input)
@@ -137,7 +137,7 @@ double knn::validate_performance()
             count++;
         }
         data_index++;
-        printf("Data Index %d Size %ld Current performance = %.3f %%\n", data_index, validation_data->size(), ((double)count * 100.0 / (double)data_index));
+        printf("Data Index %d Size %ld Label %d Prediction %d Current performance = %.3f %%\n", data_index, validation_data->size(), query_point->get_label(), prediction, ((double)count * 100.0 / (double)data_index));
     }
     current_performance = ((double)count * 100.0 / (double)validation_data->size());
     printf("Validation performance for K = %d: = %.3f %%\n", k, current_performance);
