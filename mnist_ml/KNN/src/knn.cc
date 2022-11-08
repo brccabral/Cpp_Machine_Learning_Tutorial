@@ -60,7 +60,7 @@ void knn::find_knearest(data *query_point)
         {
             for (int j = 0; j < training_data->size(); j++)
             {
-                double distance = calculate_distance(query_point, training_data->at(j));
+                double distance = training_data->at(j)->get_distance();
                 if (distance > previous_min && distance < min)
                 {
                     min = distance;
@@ -137,7 +137,7 @@ double knn::validate_performance()
             count++;
         }
         data_index++;
-        printf("Current performance = %.3f %%\n", ((double)count * 100.0 / (double)data_index));
+        printf("Data Index %d Size %ld Current performance = %.3f %%\n", data_index, validation_data->size(), ((double)count * 100.0 / (double)data_index));
     }
     current_performance = ((double)count * 100.0 / (double)validation_data->size());
     printf("Validation performance for K = %d: = %.3f %%\n", k, current_performance);
