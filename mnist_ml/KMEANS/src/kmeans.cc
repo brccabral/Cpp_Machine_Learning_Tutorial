@@ -69,7 +69,15 @@ void kmeans::train()
     }
 }
 
-double kmeans::euclidean_distance(std::vector<double> *, data *) {}
+double kmeans::euclidean_distance(std::vector<double> *centroid, data *point)
+{
+    double dist = 0.0;
+    for (int i = 0; i < centroid->size(); i++)
+    {
+        dist += pow(centroid->at(i) - point->get_feature_vector()->at(i), 2);
+    }
+    return sqrt(dist);
+}
 
 double kmeans::validate() {}
 
