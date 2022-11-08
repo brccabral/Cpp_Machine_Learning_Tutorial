@@ -15,7 +15,7 @@ void data::append_to_feature_vector(uint8_t val)
     feature_vector->push_back(val);
 }
 
-void data::set_double_feature_vector(std::vector<double> *vect)
+void data::set_feature_vector(std::vector<double> *vect)
 {
     double_feature_vector = vect;
 }

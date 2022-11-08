@@ -170,7 +170,7 @@ void data_handler::read_csv(std::string path, std::string delimiter)
             continue;
 
         data *d = new data();
-        d->set_double_feature_vector(new std::vector<double>());
+        d->set_feature_vector(new std::vector<double>());
         size_t position = 0;
         std::string token; // value in between delimiter
         while ((position = line.find(delimiter)) != std::string::npos)

@@ -19,7 +19,7 @@ public:
     void set_feature_vector(std::vector<uint8_t> *);
     void append_to_feature_vector(uint8_t);
     
-    void set_double_feature_vector(std::vector<double> *);
+    void set_feature_vector(std::vector<double> *);
     void append_to_feature_vector(double);
     void set_class_vector(int count);
 
