@@ -31,11 +31,12 @@ typedef struct cluster
         most_frequent_class = initial_point->get_label();
     }
 
+    // adds a new point to cluster and recalculate centroid
     void add_to_cluster(data *point)
     {
         int previous_size = cluster_points->size();
         cluster_points->push_back(point);
-        // moving average
+        // moving average - recalculate centroid with new point
         for (int i = 0; i < centroid->size() - 1; i++)
         {
             double value = centroid->at(i);
@@ -44,6 +45,7 @@ typedef struct cluster
             value /= (double)cluster_points->size();
             centroid->at(i) = value;
         }
+        // increase class count
         if (class_counts.find(point->get_label()) == class_counts.end())
         {
             class_counts[point->get_label()] = 1;
@@ -52,6 +54,7 @@ typedef struct cluster
         {
             class_counts[point->get_label()]++;
         }
+        set_most_frequent_class();
     }
 
     void set_most_frequent_class()
