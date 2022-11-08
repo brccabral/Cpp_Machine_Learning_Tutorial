@@ -9,21 +9,26 @@ knn::knn(int val)
 {
     k = val;
 }
+
 knn::knn() {}
+
 knn::~knn() {}
 
 void knn::set_training_data(std::vector<data *> *vect)
 {
     training_data = vect;
 }
+
 void knn::set_test_data(std::vector<data *> *vect)
 {
     test_data = vect;
 }
+
 void knn::set_validation_data(std::vector<data *> *vect)
 {
     validation_data = vect;
 }
+
 void knn::set_k(int val)
 {
     k = val;
@@ -104,6 +109,7 @@ int knn::predict()
     neighbors->clear();
     return best;
 }
+
 double knn::calculate_distance(data *query_point, data *input)
 {
     double distance = 0.0;
@@ -123,6 +129,7 @@ double knn::calculate_distance(data *query_point, data *input)
 #endif
     return distance;
 }
+
 double knn::validate_performance()
 {
     double current_performance = 0;
@@ -143,6 +150,7 @@ double knn::validate_performance()
     printf("Validation performance for K = %d: = %.3f %%\n", k, current_performance);
     return current_performance;
 }
+
 double knn::test_performance()
 {
     double current_performance = 0;

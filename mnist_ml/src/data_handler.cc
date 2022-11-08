@@ -7,6 +7,7 @@ data_handler::data_handler()
     test_data = new std::vector<data *>;
     validation_data = new std::vector<data *>;
 }
+
 data_handler::~data_handler() {}
 
 void data_handler::read_feature_vector(std::string path)
@@ -51,6 +52,7 @@ void data_handler::read_feature_vector(std::string path)
         exit(1);
     }
 }
+
 void data_handler::read_feature_labels(std::string path)
 {
     uint32_t header[2]; // |MAGIC|NUM IMAGES|
@@ -87,6 +89,7 @@ void data_handler::read_feature_labels(std::string path)
         exit(1);
     }
 }
+
 void data_handler::split_data()
 {
     std::unordered_set<int> used_indexes;
@@ -137,6 +140,7 @@ void data_handler::split_data()
     printf("Test data size: %lu.\n", test_data->size());
     printf("Validation data size: %lu.\n", validation_data->size());
 }
+
 void data_handler::count_classes()
 {
     int count = 0;
@@ -165,10 +169,12 @@ std::vector<data *> *data_handler::get_training_data()
 {
     return training_data;
 }
+
 std::vector<data *> *data_handler::get_test_data()
 {
     return test_data;
 }
+
 std::vector<data *> *data_handler::get_validation_data()
 {
     return validation_data;
