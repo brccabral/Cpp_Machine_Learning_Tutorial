@@ -11,3 +11,5 @@ export MNIST_ML_ROOT=$PWD
 make
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/lib
 ```
+
+Iris Data Set can be downloaded from https://archive.ics.uci.edu/ml/datasets/iris
