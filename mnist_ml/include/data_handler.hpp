@@ -37,4 +37,6 @@ public:
     std::vector<data *> *get_training_data();
     std::vector<data *> *get_test_data();
     std::vector<data *> *get_validation_data();
+
+    int get_class_count();
 };

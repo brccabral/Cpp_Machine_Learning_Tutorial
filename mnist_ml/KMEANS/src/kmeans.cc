@@ -124,3 +124,41 @@ double kmeans::test()
     }
     return 100.0 * num_correct / (double)test_data->size();
 }
+
+int main()
+{
+    data_handler *dh = new data_handler();
+    dh->read_feature_vector("../../MNIST/train-images.idx3-ubyte"); // for now, needs to come first
+    dh->read_feature_labels("../../MNIST/train-labels.idx1-ubyte");
+    dh->split_data();
+    dh->count_classes();
+    double performance = 0;
+    double best_performance = 0;
+    int best_k = 1;
+    // find the best K amount of clusters that fits 10% of training data
+    for (int k = dh->get_class_count(); k < dh->get_training_data()->size() * 0.1; k++)
+    {
+        kmeans *km = new kmeans(k);
+        km->set_training_data(dh->get_training_data());
+        km->set_test_data(dh->get_test_data());
+        km->set_validation_data(dh->get_validation_data());
+        km->init_clusters();
+        km->train();
+        performance = km->validate();
+        printf("Current Performance @ K = %d: %.2f\n", k, performance);
+        if (performance > best_performance)
+        {
+            best_performance = performance;
+            best_k = k;
+        }
+    }
+
+    // test the performance of the best K amount of clusters
+    kmeans *km = new kmeans(best_k);
+    km->set_training_data(dh->get_training_data());
+    km->set_test_data(dh->get_test_data());
+    km->set_validation_data(dh->get_validation_data());
+    km->init_clusters();
+    performance = km->test();
+    printf("Tested Performance @ K = %d: %.2f\n", best_k, performance);
+}
