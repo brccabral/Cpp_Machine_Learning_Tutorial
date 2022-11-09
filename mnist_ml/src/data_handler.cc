@@ -230,6 +230,9 @@ void data_handler::read_csv(std::string path, std::string delimiter)
         }
         data_array->push_back(d);
     }
+    for (data *data : *data_array)
+        data->set_class_vector(num_classes);
+
     feature_vector_size = data_array->at(0)->get_normalized_featureVector()->size();
 }
 

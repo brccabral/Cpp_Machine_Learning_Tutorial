@@ -27,11 +27,11 @@ void data::set_class_vector(int count)
     {
         if (i == label)
         {
-            class_vector->at(i) = 1;
+            class_vector->push_back(1);
         }
         else
         {
-            class_vector->at(i) = 0;
+            class_vector->push_back(0);
         }
     }
 }

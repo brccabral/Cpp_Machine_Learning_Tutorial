@@ -82,7 +82,7 @@ void Network::bprop(data *data)
         else
         {
             // output error
-            for (int j = 0; i < layer->neurons.size(); j++)
+            for (int j = 0; j < layer->neurons.size(); j++)
             {
                 Neuron *n = layer->neurons.at(j);
                 errors.push_back((double)data->get_class_vector().at(j) - n->output); // expected - actual
@@ -207,4 +207,5 @@ int main()
         net->validate();
         net->test();
     };
+    lambda();
 }
