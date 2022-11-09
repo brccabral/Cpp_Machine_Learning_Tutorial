@@ -161,5 +161,20 @@ double Network::test()
             numCorrect++;
     }
     testPerformance = (numCorrect / count);
+    printf("Test performance: %.4f\n", testPerformance);
     return testPerformance;
+}
+
+void Network::validate()
+{
+    double numCorrect = 0.0;
+    double count = 0.0;
+    for (data *data : *this->validation_data)
+    {
+        count++;
+        int index = predict(data);
+        if (data->get_class_vector().at(index) == 1)
+            numCorrect++;
+    }
+    printf("Validation performance: %.4f\n", numCorrect / count);
 }
