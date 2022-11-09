@@ -3,4 +3,5 @@ main
 .vscode/launch.json
 .vscode/settings.json
 mnist_ml/obj/
+mnist_ml/NEURAL_NETWORK/obj/
 IRIS/
