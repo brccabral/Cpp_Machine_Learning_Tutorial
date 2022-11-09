@@ -11,7 +11,7 @@ public:
     std::vector<Layer *> layers;
     double learningRate;
     double testPerformance;
-    // number of neurons for each hidden layer, neurons input, neurons output
+    // number of neurons for each hidden layer, neurons input, neurons output, learning rate
     Network(std::vector<int> hiddenLayerSpec, int, int, double);
     ~Network();
     std::vector<double> fprop(data *data); // forward, returns last layer
