@@ -38,4 +38,5 @@ public:
     std::vector<int> *get_class_vector();
 
     void set_normalized_featureVector(std::vector<double> *vect);
+    std::vector<double> *get_normalized_featureVector();
 };

@@ -39,3 +39,21 @@ double Network::transferDerivative(double output)
 {
     return output * (1 - output);
 }
+
+std::vector<double> Network::fprop(data *data)
+{
+    std::vector<double> inputs = *data->get_normalized_featureVector();
+    for (int i = 0; i < layers.size(); i++)
+    {
+        Layer *layer = layers.at(i);
+        std::vector<double> newInputs;
+        for (Neuron *n : layer->neurons)
+        {
+            double activation = this->activate(n->weights, inputs);
+            n->output = this->transfer(activation);
+            newInputs.push_back(n->output);
+        }
+        inputs = newInputs;
+    }
+    return inputs; // returns the output layer
+}

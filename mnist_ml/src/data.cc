@@ -81,7 +81,12 @@ std::vector<uint8_t> *data::get_feature_vector()
     return feature_vector;
 }
 
-void data::set_normalized_featureVector(std::vector<double>* vect)
+void data::set_normalized_featureVector(std::vector<double> *vect)
 {
-  normalizedFeatureVector = vect;
+    normalizedFeatureVector = vect;
+}
+
+std::vector<double> *data::get_normalized_featureVector()
+{
+    return normalizedFeatureVector;
 }
