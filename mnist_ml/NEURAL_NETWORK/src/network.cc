@@ -27,3 +27,15 @@ double Network::activate(std::vector<double> weights, std::vector<double> input)
     }
     return activation;
 }
+
+// sigmoid
+double Network::transfer(double activation)
+{
+    return 1.0 / (1.0 + exp(-activation));
+}
+
+// sigmoid derivative
+double Network::transferDerivative(double output)
+{
+    return output * (1 - output);
+}
