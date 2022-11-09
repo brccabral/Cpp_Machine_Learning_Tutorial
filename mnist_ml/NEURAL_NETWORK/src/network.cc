@@ -178,3 +178,33 @@ void Network::validate()
     }
     printf("Validation performance: %.4f\n", numCorrect / count);
 }
+
+int main()
+{
+    data_handler *data_handler = new data_handler();
+#ifdef MNIST
+    dh->read_feature_vector("../../MNIST/train-images.idx3-ubyte"); // for now, needs to come first
+    dh->read_feature_labels("../../MNIST/train-labels.idx1-ubyte");
+    dh->split_data();
+    dh->count_classes();
+#else
+    data_handler->read_csv("../../IRIS/iris.data", ",");
+#endif
+    data_handler->split_data();
+    std::vector<int> hiddenLayers = {10};
+    auto lambda = [&]()
+    {
+        Network *net = new Network(
+            hiddenLayers,
+            data_handler->get_training_data()->at(0)->get_normalized_featureVector()->size(),
+            data_handler->get_class_count(),
+            0.25);
+        net->set_training_data(data_handler->get_training_data());
+        net->set_validation_data(data_handler->get_validation_data());
+        net->set_test_data(data_handler->get_test_data());
+
+        net->train(15);
+        net->validate();
+        net->test();
+    }
+}
