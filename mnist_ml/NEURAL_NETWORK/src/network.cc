@@ -85,7 +85,7 @@ void Network::bprop(data *data)
             for (int j = 0; i < layer->neurons.size(); j++)
             {
                 Neuron *n = layer->neurons.at(j);
-                errors.push_back((double)data->get_class_vector()->at(j) - n->output); // expected - actual
+                errors.push_back((double)data->get_class_vector().at(j) - n->output); // expected - actual
             }
         }
 
@@ -125,4 +125,25 @@ int Network::predict(data *data)
 {
     std::vector<double> outputs = fprop(data);
     return std::distance(outputs.begin(), std::max_element(outputs.begin(), outputs.end()));
+}
+
+void Network::train(int numEpochs)
+{
+    for (int i = 0; i < numEpochs; i++)
+    {
+        double sumError = 0.0;
+        for (data *data : *this->training_data)
+        {
+            std::vector<double> outputs = fprop(data);
+            std::vector<int> expected = data->get_class_vector();
+            double tempErrorSum = 0.0;
+            for(int j =0;j<outputs.size();j++){
+                tempErrorSum += pow((double)expected.at(j) - outputs.at(j), 2);
+            }
+            sumError += tempErrorSum;
+            bprop(data);
+            updateWeights(data);
+        }
+        printf("Iteration: %d out of %d \t Error=%.4f\n", i, numEpochs, sumError);
+    }
 }
