@@ -185,12 +185,12 @@ int main()
 #ifdef MNIST
     dh->read_feature_vector("../../MNIST/train-images.idx3-ubyte"); // for now, needs to come first
     dh->read_feature_labels("../../MNIST/train-labels.idx1-ubyte");
-    dh->split_data();
     dh->count_classes();
 #else
     dh->read_csv("../../IRIS/iris.data", ",");
 #endif
     dh->split_data();
+    // dh->print();
     std::vector<int> hiddenLayers = {10};
     auto lambda = [&]()
     {

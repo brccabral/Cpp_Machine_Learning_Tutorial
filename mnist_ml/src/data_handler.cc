@@ -153,10 +153,10 @@ void data_handler::count_classes()
             count++;
         }
     }
-    num_classes = count;
+    class_counts = count;
     for (data *data : *data_array)
-        data->set_class_vector(num_classes);
-    printf("Successfully extracted %d unique classes\n", num_classes);
+        data->set_class_vector(class_counts);
+    printf("Successfully extracted %d unique classes\n", class_counts);
 }
 
 void data_handler::normalize()
@@ -186,7 +186,7 @@ void data_handler::normalize()
     for (int i = 0; i < data_array->size(); i++)
     {
         data_array->at(i)->set_normalized_featureVector(new std::vector<double>());
-        data_array->at(i)->set_class_vector(num_classes);
+        data_array->at(i)->set_class_vector(class_counts);
         for (int j = 0; j < data_array->at(i)->get_feature_vector_size(); j++)
         {
             if (maxs[j] - mins[j] == 0)
@@ -200,7 +200,7 @@ void data_handler::normalize()
 
 void data_handler::read_csv(std::string path, std::string delimiter)
 {
-    num_classes = 0;
+    class_counts = 0;
     std::ifstream data_file(path.c_str());
     std::string line; // holds each line
     while (std::getline(data_file, line))
@@ -224,14 +224,14 @@ void data_handler::read_csv(std::string path, std::string delimiter)
         }
         else
         {
+            classMap[line] = class_counts;
             d->set_label(classMap[line]);
-            classMap[line] = num_classes;
-            num_classes++;
+            class_counts++;
         }
         data_array->push_back(d);
     }
     for (data *data : *data_array)
-        data->set_class_vector(num_classes);
+        data->set_class_vector(class_counts);
 
     feature_vector_size = data_array->at(0)->get_normalized_featureVector()->size();
 }
@@ -261,7 +261,60 @@ std::vector<data *> *data_handler::get_validation_data()
 
 int data_handler::get_class_count()
 {
-    return num_classes;
+    return class_counts;
+}
+
+int data_handler::get_data_array_size()
+{
+    return data_array->size();
+}
+
+int data_handler::get_training_data_size()
+{
+    return training_data->size();
+}
+
+int data_handler::get_test_data_size()
+{
+    return test_data->size();
+}
+
+int data_handler::get_validation_data_size()
+{
+    return validation_data->size();
+}
+
+void data_handler::print()
+{
+    printf("Training Data:\n");
+    for (auto data : *training_data)
+    {
+        for (auto value : *data->get_normalized_featureVector())
+        {
+            printf("%.3f,", value);
+        }
+        printf(" ->   %d\n", data->get_label());
+    }
+
+    printf("Test Data:\n");
+    for (auto data : *test_data)
+    {
+        for (auto value : *data->get_normalized_featureVector())
+        {
+            printf("%.3f,", value);
+        }
+        printf(" ->   %d\n", data->get_label());
+    }
+
+    printf("Validation Data:\n");
+    for (auto data : *validation_data)
+    {
+        for (auto value : *data->get_normalized_featureVector())
+        {
+            printf("%.3f,", value);
+        }
+        printf(" ->   %d\n", data->get_label());
+    }
 }
 
 int main()

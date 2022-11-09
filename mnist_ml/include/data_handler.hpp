@@ -15,7 +15,7 @@ class data_handler
     std::vector<data *> *test_data;
     std::vector<data *> *validation_data;
 
-    int num_classes;
+    int class_counts;
     int feature_vector_size;
     std::map<uint8_t, int> class_map;
     std::map<std::string, int> classMap;
@@ -41,5 +41,10 @@ public:
     std::vector<data *> *get_validation_data();
 
     int get_class_count();
+    int get_data_array_size();
+    int get_training_data_size();
+    int get_test_data_size();
+    int get_validation_data_size();
+    void print();
     void normalize();
 };
