@@ -2,6 +2,8 @@
 #include "layer.hpp"
 #include "data_handler.hpp"
 #include <numeric>
+#include <algorithm>
+#include <iterator>
 
 Network::Network(std::vector<int> spec, int inputSize, int numClasses, double learningRate)
 {
@@ -117,4 +119,10 @@ void Network::updateWeights(data *data)
         }
         inputs.clear();
     }
+}
+
+int Network::predict(data *data)
+{
+    std::vector<double> outputs = fprop(data);
+    return std::distance(outputs.begin(), std::max_element(outputs.begin(), outputs.end()));
 }
