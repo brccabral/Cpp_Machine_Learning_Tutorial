@@ -90,3 +90,8 @@ std::vector<double> *data::get_normalized_featureVector()
 {
     return normalizedFeatureVector;
 }
+
+std::vector<int> data::get_class_vector()
+{
+    return *class_vector;
+}
