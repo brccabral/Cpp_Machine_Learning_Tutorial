@@ -94,3 +94,27 @@ void Network::bprop(data *data)
         }
     }
 }
+
+void Network::updateWeights(data *data)
+{
+    std::vector<double> inputs = *data->get_normalized_featureVector();
+    for (int i = 0; i < layers.size(); i++)
+    {
+        if (i != 0)
+        {
+            for (Neuron *n : layers.at(i - 1)->neurons)
+            {
+                inputs.push_back(n->output);
+            }
+        }
+        for (Neuron *n : layers.at(i)->neurons)
+        {
+            for (int j = 0; j < inputs.size(); j++)
+            {
+                n->weights.at(j) += this->learningRate * n->delta * inputs.at(j);
+            }
+            n->weights.back() += this->learningRate * n->delta;
+        }
+        inputs.clear();
+    }
+}
