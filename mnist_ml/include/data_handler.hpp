@@ -20,13 +20,19 @@ class data_handler
     std::map<uint8_t, int> class_map;
     std::map<std::string, int> classMap;
 
-    const double TRAIN_SET_PERCENT = 0.75;
-    const double TEST_SET_PERCENT = 0.20;
-    const double VALIDATION_PERCENT = 0.05;
+    double TRAIN_SET_PERCENT = 0.1;
+    double TEST_SET_PERCENT = 0.075;
+    double VALIDATION_PERCENT = 0.005;
+    // const double TRAIN_SET_PERCENT = 0.75;
+    // const double TEST_SET_PERCENT = 0.20;
+    // const double VALIDATION_PERCENT = 0.05;
 
 public:
     data_handler();
     ~data_handler();
+    void set_train_percent(double perc) { TRAIN_SET_PERCENT = perc; };
+    void set_test_percent(double perc) { TEST_SET_PERCENT = perc; };
+    void set_validation_percent(double perc) { VALIDATION_PERCENT= perc; };
 
     void read_feature_vector(std::string path);
     void read_feature_labels(std::string path);

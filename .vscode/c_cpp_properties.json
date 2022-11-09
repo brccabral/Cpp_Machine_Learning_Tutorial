@@ -7,7 +7,8 @@
             "cStandard": "gnu11",
             "cppStandard": "gnu++11",
             "defines": [
-                "EUCLID"
+                "EUCLID",
+                "MNIST"
             ],
             "includePath": [
                 "${workspaceFolder}/mnist_ml/include",

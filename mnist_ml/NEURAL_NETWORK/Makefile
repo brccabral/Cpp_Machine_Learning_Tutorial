@@ -1,6 +1,6 @@
 CC=g++
 SRC := $(MNIST_ML_ROOT)/NEURAL_NETWORK/src
-CFLAGS := -std=c++11 -DEUCLID -g
+CFLAGS := -std=c++11 -DEUCLID -g -DMNIST
 INCLUDE_DIR := $(MNIST_ML_ROOT)/NEURAL_NETWORK/include
 
 all: main

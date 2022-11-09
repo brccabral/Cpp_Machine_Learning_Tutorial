@@ -183,10 +183,16 @@ int main()
 {
     data_handler *dh = new data_handler();
 #ifdef MNIST
+    dh->set_train_percent(0.1);
+    dh->set_test_percent(0.075);
+    dh->set_validation_percent(0.005);
     dh->read_feature_vector("../../MNIST/train-images.idx3-ubyte"); // for now, needs to come first
     dh->read_feature_labels("../../MNIST/train-labels.idx1-ubyte");
     dh->count_classes();
 #else
+    dh->set_train_percent(0.75);
+    dh->set_test_percent(0.20);
+    dh->set_validation_percent(0.05);
     dh->read_csv("../../IRIS/iris.data", ",");
 #endif
     dh->split_data();
