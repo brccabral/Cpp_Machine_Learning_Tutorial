@@ -57,3 +57,40 @@ std::vector<double> Network::fprop(data *data)
     }
     return inputs; // returns the output layer
 }
+
+void Network::bprop(data *data)
+{
+    for (int i = layers.size() - 1; i >= 0; i--)
+    {
+        Layer *layer = layers.at(i);
+        std::vector<double> errors;
+        if (i != layers.size() - 1)
+        {
+            for (int j = 0; j < layer->neurons.size(); j++)
+            {
+                // error contribution from current neuron into all neurons from next layer
+                double error = 0.0;
+                for (Neuron *n : layers.at(i + 1)->neurons)
+                {
+                    error += (n->weights.at(j) * n->delta);
+                }
+                errors.push_back(error);
+            }
+        }
+        else
+        {
+            // output error
+            for (int j = 0; i < layer->neurons.size(); j++)
+            {
+                Neuron *n = layer->neurons.at(j);
+                errors.push_back((double)data->get_class_vector()->at(j) - n->output); // expected - actual
+            }
+        }
+
+        for (int j = 0; j < layer->neurons.size(); j++)
+        {
+            Neuron *n = layer->neurons.at(j);
+            n->delta = errors.at(j) * this->transferDerivative(n->output); // gradient / derivative part of backprop
+        }
+    }
+}
