@@ -7,7 +7,6 @@
 class data
 {
     std::vector<uint8_t> *feature_vector; // No class/label at end.
-    std::vector<double> *double_feature_vector;
     std::vector<int> *class_vector;
     std::vector<double> *normalizedFeatureVector;
     uint8_t label;
@@ -20,7 +19,6 @@ public:
     void set_feature_vector(std::vector<uint8_t> *);
     void append_to_feature_vector(uint8_t);
 
-    void set_feature_vector(std::vector<double> *);
     void append_to_feature_vector(double);
     void set_class_vector(int count);
 

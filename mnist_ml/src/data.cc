@@ -15,14 +15,9 @@ void data::append_to_feature_vector(uint8_t val)
     feature_vector->push_back(val);
 }
 
-void data::set_feature_vector(std::vector<double> *vect)
-{
-    double_feature_vector = vect;
-}
-
 void data::append_to_feature_vector(double val)
 {
-    double_feature_vector->push_back(val);
+    normalizedFeatureVector->push_back(val);
 }
 
 void data::set_class_vector(int count)
