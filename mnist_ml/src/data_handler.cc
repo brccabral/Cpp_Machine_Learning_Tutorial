@@ -159,6 +159,45 @@ void data_handler::count_classes()
     printf("Successfully extracted %d unique classes\n", num_classes);
 }
 
+void data_handler::normalize()
+{
+    std::vector<double> mins, maxs;
+
+    data *d = data_array->at(0);
+    for (auto val : *d->get_feature_vector())
+    {
+        mins.push_back(val);
+        maxs.push_back(val);
+    }
+
+    for (int i = 1; i < data_array->size(); i++)
+    {
+        d = data_array->at(i);
+        for (int j = 0; j < d->get_feature_vector_size(); j++)
+        {
+            double value = (double)d->get_feature_vector()->at(j);
+            if (value < mins.at(j))
+                mins[j] = value;
+            if (value > maxs.at(j))
+                maxs[j] = value;
+        }
+    }
+
+    for (int i = 0; i < data_array->size(); i++)
+    {
+        data_array->at(i)->set_normalized_featureVector(new std::vector<double>());
+        data_array->at(i)->set_class_vector(num_classes);
+        for (int j = 0; j < data_array->at(i)->get_feature_vector_size(); j++)
+        {
+            if (maxs[j] - mins[j] == 0)
+                data_array->at(i)->append_to_feature_vector(0.0);
+            else
+                data_array->at(i)->append_to_feature_vector(
+                    (double)(data_array->at(i)->get_feature_vector()->at(j) - mins[j]) / (maxs[j] - mins[j]));
+        }
+    }
+}
+
 void data_handler::read_csv(std::string path, std::string delimiter)
 {
     num_classes = 0;

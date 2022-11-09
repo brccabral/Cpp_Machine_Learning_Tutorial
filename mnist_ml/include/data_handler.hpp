@@ -41,4 +41,5 @@ public:
     std::vector<data *> *get_validation_data();
 
     int get_class_count();
+    void normalize();
 };
