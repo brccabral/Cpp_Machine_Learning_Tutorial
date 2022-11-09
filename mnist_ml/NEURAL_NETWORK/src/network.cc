@@ -137,7 +137,8 @@ void Network::train(int numEpochs)
             std::vector<double> outputs = fprop(data);
             std::vector<int> expected = data->get_class_vector();
             double tempErrorSum = 0.0;
-            for(int j =0;j<outputs.size();j++){
+            for (int j = 0; j < outputs.size(); j++)
+            {
                 tempErrorSum += pow((double)expected.at(j) - outputs.at(j), 2);
             }
             sumError += tempErrorSum;
@@ -146,4 +147,19 @@ void Network::train(int numEpochs)
         }
         printf("Iteration: %d out of %d \t Error=%.4f\n", i, numEpochs, sumError);
     }
+}
+
+double Network::test()
+{
+    double numCorrect = 0.0;
+    double count = 0.0;
+    for (data *data : *this->test_data)
+    {
+        count++;
+        int index = predict(data);
+        if (data->get_class_vector().at(index) == 1)
+            numCorrect++;
+    }
+    testPerformance = (numCorrect / count);
+    return testPerformance;
 }
