@@ -17,3 +17,13 @@ Network::Network(std::vector<int> spec, int inputSize, int numClasses, double le
 }
 
 Network::~Network() {}
+
+double Network::activate(std::vector<double> weights, std::vector<double> input)
+{
+    double activation = weights.back();          // bias term
+    for (int i = 0; i < weights.size() - 1; i++) // -1 is to ignore bias
+    {
+        activation += weights[i] * input[i];
+    }
+    return activation;
+}
