@@ -1,5 +1,4 @@
 CC=g++
-MNIST_ML_ROOT := $(if $(MNIST_ML_ROOT),$(MNIST_ML_ROOT),$(PWD))
 INCLUDE_DIR := $(MNIST_ML_ROOT)/include
 SRC := $(MNIST_ML_ROOT)/src
 CFLAGS := -std=c++11 -g
