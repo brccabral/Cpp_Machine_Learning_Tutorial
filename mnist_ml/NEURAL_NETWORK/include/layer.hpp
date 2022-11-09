@@ -10,7 +10,4 @@ public:
     std::vector<Neuron *> neurons;
     std::vector<double> layerOutput;
     Layer(int, int);
-    ~Layer();
-    std::vector<double> getLayerOutputs();
-    int getSize();
 };
