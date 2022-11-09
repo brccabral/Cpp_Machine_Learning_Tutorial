@@ -230,7 +230,7 @@ void data_handler::read_csv(std::string path, std::string delimiter)
         }
         data_array->push_back(d);
     }
-    feature_vector_size = data_array->at(0)->get_double_feature_vector()->size();
+    feature_vector_size = data_array->at(0)->get_normalized_featureVector()->size();
 }
 
 uint32_t data_handler::convert_to_little_endian(const unsigned char *bytes)

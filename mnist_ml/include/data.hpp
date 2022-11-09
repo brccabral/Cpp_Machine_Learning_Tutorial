@@ -34,7 +34,6 @@ public:
     uint8_t get_enumerated_label();
 
     std::vector<uint8_t> *get_feature_vector();
-    std::vector<double> *get_double_feature_vector();
     std::vector<int> get_class_vector();
 
     void set_normalized_featureVector(std::vector<double> *vect);
