@@ -161,7 +161,6 @@ double Network::test()
             numCorrect++;
     }
     testPerformance = (numCorrect / count);
-    printf("Test performance: %.4f\n", testPerformance);
     return testPerformance;
 }
 
@@ -212,7 +211,7 @@ int main()
 
         net->train(15);
         net->validate();
-        net->test();
+        printf("Test performance: %.4f\n", net->test());
     };
     lambda();
 }
