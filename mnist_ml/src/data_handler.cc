@@ -92,6 +92,117 @@ void data_handler::read_feature_labels(std::string path)
     }
 }
 
+void data_handler::read_input_data(std::string path)
+{
+    uint32_t magic = 0;
+    uint32_t num_images = 0;
+    uint32_t num_rows = 0;
+    uint32_t num_cols = 0;
+
+    unsigned char bytes[4];
+    FILE *f = fopen(path.c_str(), "r");
+    if (f)
+    {
+        int i = 0;
+        while (i < 4)
+        {
+            if (fread(bytes, sizeof(bytes), 1, f))
+            {
+                switch (i)
+                {
+                case 0:
+                    magic = convert_to_little_endian(bytes);
+                    i++;
+                    break;
+                case 1:
+                    num_images = convert_to_little_endian(bytes);
+                    i++;
+                    break;
+                case 2:
+                    num_rows = convert_to_little_endian(bytes);
+                    i++;
+                    break;
+                case 3:
+                    num_cols = convert_to_little_endian(bytes);
+                    i++;
+                    break;
+                }
+            }
+        }
+        printf("Done getting file header.\n");
+        uint32_t image_size = num_rows * num_cols;
+        for (i = 0; i < num_images; i++)
+        {
+            data *d = new data();
+            d->set_feature_vector(new std::vector<uint8_t>());
+            uint8_t element[1];
+            for (int j = 0; j < image_size; j++)
+            {
+                if (fread(element, sizeof(element), 1, f))
+                {
+                    d->append_to_feature_vector(element[0]);
+                }
+            }
+            data_array->push_back(d);
+            data_array->back()->set_class_vector(class_counts);
+        }
+        normalize();
+        feature_vector_size = data_array->at(0)->get_feature_vector()->size();
+        printf("Successfully read %lu data entries.\n", data_array->size());
+        printf("The Feature Vector Size is: %d\n", feature_vector_size);
+    }
+    else
+    {
+        printf("Invalid Input File Path\n");
+        exit(1);
+    }
+}
+
+void data_handler::read_label_data(std::string path)
+{
+    uint32_t magic = 0;
+    uint32_t num_images = 0;
+    unsigned char bytes[4];
+    FILE *f = fopen(path.c_str(), "r");
+    if (f)
+    {
+        int i = 0;
+        while (i < 2)
+        {
+            if (fread(bytes, sizeof(bytes), 1, f))
+            {
+                switch (i)
+                {
+                case 0:
+                    magic = convert_to_little_endian(bytes);
+                    i++;
+                    break;
+                case 1:
+                    num_images = convert_to_little_endian(bytes);
+                    i++;
+                    break;
+                }
+            }
+        }
+
+        for (unsigned j = 0; j < num_images; j++)
+        {
+            uint8_t element[1];
+            if (fread(element, sizeof(element), 1, f))
+            {
+                data_array->at(j)->set_label(element[0]);
+            }
+        }
+
+        printf("Done getting Label header.\n");
+    }
+    else
+    {
+        printf("Invalid Label File Path\n");
+        exit(1);
+    }
+}
+
 void data_handler::split_data()
 {
     std::unordered_set<int> used_indexes;

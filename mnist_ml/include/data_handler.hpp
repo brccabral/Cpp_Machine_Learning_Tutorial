@@ -32,15 +32,18 @@ public:
     ~data_handler();
     void set_train_percent(double perc) { TRAIN_SET_PERCENT = perc; };
     void set_test_percent(double perc) { TEST_SET_PERCENT = perc; };
-    void set_validation_percent(double perc) { VALIDATION_PERCENT= perc; };
+    void set_validation_percent(double perc) { VALIDATION_PERCENT = perc; };
 
     void read_feature_vector(std::string path);
     void read_feature_labels(std::string path);
+    void read_input_data(std::string path);
+    void read_label_data(std::string path);
     void split_data();
     void count_classes();
     void read_csv(std::string path, std::string delimiter);
 
     uint32_t convert_to_little_endian(const unsigned char *bytes);
+    uint32_t format(const unsigned char *bytes);
 
     std::vector<data *> *get_training_data();
     std::vector<data *> *get_test_data();

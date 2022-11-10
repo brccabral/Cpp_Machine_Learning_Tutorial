@@ -186,8 +186,8 @@ int main()
     dh->set_train_percent(0.1);
     dh->set_test_percent(0.075);
     dh->set_validation_percent(0.005);
-    dh->read_feature_vector("../../MNIST/train-images.idx3-ubyte"); // for now, needs to come first
-    dh->read_feature_labels("../../MNIST/train-labels.idx1-ubyte");
+    dh->read_input_data("../../MNIST/train-images.idx3-ubyte"); // for now, needs to come first
+    dh->read_label_data("../../MNIST/train-labels.idx1-ubyte");
     dh->count_classes();
 #else
     dh->set_train_percent(0.75);
@@ -196,7 +196,7 @@ int main()
     dh->read_csv("../../IRIS/iris.data", ",");
 #endif
     dh->split_data();
-    dh->normalize();
+    // dh->normalize();
     // dh->print();
     std::vector<int> hiddenLayers = {10};
     auto lambda = [&]()
