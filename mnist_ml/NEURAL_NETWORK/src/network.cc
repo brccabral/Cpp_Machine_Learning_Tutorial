@@ -196,6 +196,7 @@ int main()
     dh->read_csv("../../IRIS/iris.data", ",");
 #endif
     dh->split_data();
+    dh->normalize();
     // dh->print();
     std::vector<int> hiddenLayers = {10};
     auto lambda = [&]()
