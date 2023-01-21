@@ -3,7 +3,7 @@
         {
             "name": "ML Linux",
             "intelliSenseMode": "linux-gcc-x64",
-            "compilerPath": "/usr/local/bin/gcc",
+            "compilerPath": "/usr/bin/gcc",
             "cStandard": "gnu11",
             "cppStandard": "gnu++11",
             "defines": [
